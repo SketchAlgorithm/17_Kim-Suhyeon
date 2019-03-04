@@ -1,3 +1,4 @@
+//시간초과 뜸...8ㅅ8
 #include<iostream>
 #include<vector>
 
