@@ -1,0 +1,46 @@
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+int n, rest = 0;
+int answer = 0;
+vector<int> schedule;
+
+void countRest(int time) {
+	for (int i = 0; i < time; i++) {
+		if (schedule[i]) {
+			rest++;
+		}
+		//0이 나온다면 이전에 기록한 것(temp)과
+		//지금까지 기록한 rest를 비교
+		//rest가 더 크다면 answer에 저장, rest = 0 초기화
+		else {
+			if (answer < rest)
+				answer = rest;
+			rest = 0;
+		}
+	}
+}
+
+int main() {
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		int work;
+		cin >> work;
+		schedule.push_back(work);
+	}
+	//마지막날이 쉬는날(1)이면 다음날까지 보기
+	if (schedule[n-1]) {
+		for (int i = 0; i < n; i++) {
+			schedule.push_back(schedule[i]);
+		}
+		countRest(2 * n);
+	}
+	//마지막 날이 일하는 날(0)이면 하루만 보기
+	else{
+		countRest(n);
+	}
+	cout << answer;
+	return 0;
+}
